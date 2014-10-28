@@ -155,7 +155,7 @@ class ServiceCenterController extends Controller
     public function actionPrevent($id)
     {
         $model=$this->loadModel((int)$id);
-        User::model()->findByPk($model->id_user)->prevent();
+//        User::model()->findByPk($model->id_user)->prevent();
         $this->redirect(array('index'));
 
     }
