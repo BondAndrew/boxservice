@@ -28,5 +28,9 @@ $this->menu=array(
 		'img',
 		'id_category',
 		'id_brand',
+        'view_count'=>array(
+            'name'=>'view_count',
+            'value'=> $model->view_count,
+        ),
 	),
 )); ?>
