@@ -69,7 +69,7 @@ return array(
             'connectionString' => 'mysql:host=localhost;dbname=box_service',
             'emulatePrepare' => true,
             'username' => 'root',
-            'password' => 'root',
+            'password' => '',
             'charset' => 'utf8',
             'tablePrefix' => 'bs_',
         ),
