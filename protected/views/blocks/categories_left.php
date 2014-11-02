@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<!--<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">-->
+<!--<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>-->
 <div>
     <select id="catSelect">
         <option value="" disabled selected>Искать категорию</option>
