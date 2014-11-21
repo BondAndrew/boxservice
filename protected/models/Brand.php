@@ -97,6 +97,8 @@ class Brand extends CActiveRecord
         if (!empty($allBrands)) {
             foreach ($allBrands as $brand) {
                 $returnArray[$brand['id']] = $brand['title'];
+                $returnArray[$brand['id']] = $brand['title'];
+                $returnArray[$brand['id']] = $brand['title'];
             }
         }
 

@@ -1,6 +1,6 @@
 <?php
 
-class NewsController extends Controller
+class RequestController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -51,10 +51,9 @@ class NewsController extends Controller
 	 */
 	public function actionView($id)
 	{
-        $id = (int)$id;
-        $model = $this->loadModel($id);
-        $this->getViewsCount($model);
-        $this->render('view',array('model'=>$model));
+		$this->render('view',array(
+			'model'=>$this->loadModel($id),
+		));
 	}
 
 	/**
@@ -63,14 +62,14 @@ class NewsController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new News;
+		$model=new Request;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['News']))
+		if(isset($_POST['Request']))
 		{
-			$model->attributes=$_POST['News'];
+			$model->attributes=$_POST['Request'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -79,15 +78,6 @@ class NewsController extends Controller
 			'model'=>$model,
 		));
 	}
-
-    /**
-     * Get count views from db
-     * @param $model
-     */
-
-    private function getViewsCount(&$model) {
-        $model->view_count = (int)Views::model()->countByAttributes(array('id_object'=>$model->id,'type_object'=>Views::TYPE_NEWS));
-    }
 
 	/**
 	 * Updates a particular model.
@@ -101,9 +91,9 @@ class NewsController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['News']))
+		if(isset($_POST['Request']))
 		{
-			$model->attributes=$_POST['News'];
+			$model->attributes=$_POST['Request'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -132,16 +122,18 @@ class NewsController extends Controller
 	 */
 	public function actionIndex()
 	{
-
-//		$dataProvider = new CActiveDataProvider('News');
-
+//		$dataProvider=new CActiveDataProvider('Request');
+//		$this->render('index',array(
+//			'dataProvider'=>$dataProvider,
+//		));
         $brands = Brand::model()->findAll();
         $categories = Category::model()->findAll();
+        $cities = City::model()->findAll();
 
-        $model = new CActiveDataProvider('News');
+        $model = new CActiveDataProvider('request');
         if(isset($_GET)){
             if(isset($_GET['id_category'])){
-                $model = new CActiveDataProvider('News', array(
+                $model = new CActiveDataProvider('Request', array(
                     'criteria' => array(
                         'select' => '*',
                         'condition' => 'id_category=:id_category',
@@ -152,7 +144,7 @@ class NewsController extends Controller
                     ),
                 ));
             } elseif (isset($_GET['id_brand'])){
-                $model = new CActiveDataProvider('News', array(
+                $model = new CActiveDataProvider('Request', array(
                     'criteria' => array(
                         'select' => '*',
                         'condition' => 'id_brand=:id_brand',
@@ -167,21 +159,20 @@ class NewsController extends Controller
         $this->render('index',array(
             'dataProvider'=>$model,
             'brands' => $brands,
-            'categories' => $categories
+            'categories' => $categories,
+            'cities'    => $cities
         ));
-
 	}
-
 
 	/**
 	 * Manages all models.
 	 */
 	public function actionAdmin()
 	{
-		$model=new News('search');
+		$model=new Request('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['News']))
-			$model->attributes=$_GET['News'];
+		if(isset($_GET['Request']))
+			$model->attributes=$_GET['Request'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -192,12 +183,12 @@ class NewsController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return News the loaded model
+	 * @return Request the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=News::model()->findByPk($id);
+		$model=Request::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -205,11 +196,11 @@ class NewsController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param News $model the model to be validated
+	 * @param Request $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='news-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='request-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

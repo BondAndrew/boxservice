@@ -66,6 +66,25 @@ class News extends CActiveRecord
 		);
 	}
 
+    /**
+     * get array with all brand
+     * where id it is a key, title it is a value
+     * @return array
+     */
+
+    public function getAllBrandIdTitle () {
+        $allBrands = self::findAll();
+        $returnArray = array();
+
+        if (!empty($allBrands)) {
+            foreach ($allBrands as $brand) {
+                $returnArray[$brand['id']] = $brand['title'];
+            }
+        }
+
+        return $returnArray;
+    }
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
