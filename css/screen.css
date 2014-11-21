@@ -88,34 +88,44 @@ h1 {
     font-size:     2em;
     line-height:   1;
     margin-bottom: 0.5em;
+    font-weight: bold;
+    color: #313131;
 }
 
 h2 {
     font-size:     1.6em;
     margin-bottom: 0.75em;
+    font-weight: bold;
+    color: #313131;
 }
 
 h3 {
     font-size:     1.4em;
     line-height:   1;
     margin-bottom: 1em;
+    font-weight: bold;
+    color: #313131;
 }
 
 h4 {
     font-size:     1.2em;
     line-height:   1.25;
     margin-bottom: 1.25em;
+    font-weight: bold;
+    color: #313131;
 }
 
 h5 {
     font-size:     1em;
     font-weight:   bold;
     margin-bottom: 1.5em;
+    color: #313131;
 }
 
 h6 {
     font-size:   1em;
     font-weight: bold;
+    color: #313131;
 }
 
 h1 img, h2 img, h3 img, h4 img, h5 img, h6 img {
@@ -200,11 +210,10 @@ li ul, li ol {
 
 ul, ol {
     margin:       0 1.5em 1.5em 0;
-    padding-left: 1.5em;
 }
 
 ul {
-    list-style-type: disc;
+    list-style-type: none;
 }
 
 ol {
@@ -992,4 +1001,180 @@ hr.space {
 
 .clear {
     clear: both;
+}
+
+.head_place{
+    background: #535353;
+    color: #ffffff;
+    padding: 15px 43px;
+    position: relative;
+    text-transform: uppercase;
+}
+.head_place:before{
+    content: " ";
+    position: absolute;
+    display: block;
+    left: 1px;
+    top: 1px;
+    bottom: 1px;
+    width: 15px;
+    padding-top: 7px;
+    padding-bottom: 4px;
+    background: #ff9900;
+}
+
+.head_place span{
+    color: #ff9900
+}
+
+
+.news_head{
+    background: #404040;
+    color: #ffffff;
+    padding: 38px 1px 2px 42px;
+}
+
+.news_head .p_title{
+    font-size: 21px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: block;
+    background: url(../images/icons/title-decor-2.png) repeat-x 0 bottom;
+    padding-bottom: 25px;
+    background-position-y: 32px;
+}
+
+.news_head .search{
+    margin-top: 31px;
+    margin-bottom: 31px;
+}
+
+.news_head .search input{
+    width: 81%;
+    background: #ffffff;
+    margin-right: 15px;
+}
+
+.news_head .search input:hover{
+    box-shadow: -1px 2px 4px 1px rgba(0, 0, 0, 1);
+}
+
+.btn_orange{
+    background: #ff9900;
+    text-decoration: none;
+    padding: 14px 30px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #fff;
+    box-shadow: -1px 1px 4px 1px rgba(0, 0, 0, 1);
+}
+
+.btn_orange:hover{
+    color: #ffffff;
+    box-shadow: 1px -1px 4px 1px rgba(0, 0, 0, 1);
+}
+
+.list-view .summary{
+    display: none;
+}
+
+.banner_list{
+    margin-top: 23px !important;
+    /*margin: 24px 23px;*/
+}
+
+.banner_list .brandSelect{
+
+}
+
+.s_h4{
+    font-size: 1.3em;
+    line-height: 1.25;
+    font-weight: bold;
+    color: #313131;
+}
+.banner_list select{
+    margin-bottom: 15px;
+}
+.banner_list ul{
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+.banner_list li{
+    margin-bottom: 6px;
+}
+.banner_list li a{
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 10pt;
+    color: #313131;
+}
+.banner_list li a:hover{
+    color: #c1330d;
+}
+
+.banner_list .btn_orange{
+    padding: 6px 30px;
+    color: #fff;
+    box-shadow: -1px 1px 4px 1px rgba(0, 0, 0, 0);
+}
+.banner_list .btn_orange:hover{
+    color: #fff;
+    box-shadow: 1px -1px 4px 1px rgba(0, 0, 0, 0.5);
+}
+
+.general_view .view{
+    max-width: 400px;
+    border: black;
+    border-style: solid;
+}
+
+.single_item .view_content{
+    padding: 36px;
+}
+
+.single_item .item_img{
+    padding-bottom: 32px;
+    padding-top: 10px;
+}
+
+.single_item .item_review{
+    min-height: 124px;
+    float: left;
+    margin-left: 20px;
+    margin-top: 12px;
+    max-width: 66%;
+}
+
+.single_item .category_title{
+    float:left;
+}
+
+.single_item .item_bottom_prnt{
+    margin-right: 20px;
+}
+
+.single_item .item_view_count,
+.single_item .item_time,
+.single_item .item_date{
+    vertical-align: top;
+}
+.single_item .item_view_count:before,
+.single_item .item_time:before,
+.single_item .item_date:before{
+    top: 0
+}
+
+.single_item .item_descr{
+    min-height: 202px;
+    margin-bottom: 41px;
+}
+
+.single_item .bottom_block{
+    position: absolute;
+    right: 26px;
+    bottom: -39px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
 }

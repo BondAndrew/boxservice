@@ -3,50 +3,59 @@
 /* @var $data News */
 ?>
 
-<div class="view">
+    <div class="view">
+        <div class="view_content">
+            <div class="item_img">
+                <?php echo $this->post_image($data->title, $data->img, '150','small_img');?>
+            </div>
 
-<!--    --><?//var_dump($data); exit;?>
-<!--	--><?php //echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-    <a href="<?=Yii::app()->request->getBaseUrl() . '/news/view/' . $data->id?>"><?=$data->title?></a>
-	<br />
+            <div class="item_content">
+                <div class="item_title">
+                    <h3><?=$data->title?></h3>
+                </div>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('title')); ?>:</b>
-	<?php echo CHtml::encode($data->title); ?>
-	<br />
+                <div class="item_category">
+                    <div class="category_title">
+                        <?php echo CHtml::encode($data->category->title); ?>
+                    </div>
+                </div>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('text')); ?>:</b>
-	<?php echo CHtml::encode($data->text); ?>
-	<br />
+                <div class="item_descr">
+                    <?php echo CHtml::encode($data->text); ?>
+                </div>
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>
-    <?=DateTime::createFromFormat("U", $data->created)->format("H:i")?> <?php echo CHtml::encode(DateTime::createFromFormat("U", $data->created)->format("d-m-Y")); ?>
-	<br />
-
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('view_count')); ?>:</b>
-	<?php echo CHtml::encode($data->view_count); ?>
-	<br />
-
-    <div>
-<!--        --><?php //echo CHtml::encode($data->getAttributeLabel('img')); ?>
-        <?php echo $this->post_image($data->title, $data->img, '150','small_img');?>
+                <div class="item_bottom">
+                    <div class="item_bottom_prnt">
+                        <span class="item_view_count">99</span>
+                    </div>
+                    <div class="set_hr"><hr/></div>
+                    <div class="item_bottom_prnt">
+                        <span class="item_time"><?=DateTime::createFromFormat("U", $data->created)->format("H:i")?></span>
+                    </div>
+                    <div class="set_hr"><hr/></div>
+                    <div class="item_bottom_prnt">
+                        <span class="item_date"><?php echo CHtml::encode(DateTime::createFromFormat("U", $data->created)->format("d-m-Y")); ?></span>
+                    </div>
+                    <div class="set_hr" style="width: 27%;"><hr/></div>
+                    <div style="position: relative; float: left;">
+                        <a class="read_more" href="<?= Yii::app()->request->getBaseUrl() . '/news/view/' . $data->id ?>">читать</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id_category')); ?>:</b>
-	<?php echo CHtml::encode($data->id_category); ?>
-	<br />
+    <!--        <b>--><?php //echo CHtml::encode($data->getAttributeLabel('id_category')); ?><!--:</b>-->
+    <!--        --><?php //echo CHtml::encode($data->id_category); ?>
+    <!--        <br />-->
+    <!---->
+    <!--        <b>:</b>-->
+    <!---->
+    <!--        --><?php //echo CHtml::encode($data->category->title); ?>
+    <!--        <br />-->
+    <!---->
+    <!--        <b>--><?php //echo CHtml::encode($data->getAttributeLabel('id_brand')); ?><!--:</b>-->
+    <!--        --><?php //echo CHtml::encode($data->id_brand); ?>
+    <!--        <br />-->
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('title_category')); ?>:</b>
-
-	<?php echo CHtml::encode($data->category->title); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id_brand')); ?>:</b>
-	<?php echo CHtml::encode($data->id_brand); ?>
-	<br />
-
-    <a href="<?=Yii::app()->request->getBaseUrl() . '/news/view/' . $data->id?>">ЧИТАТЬ</a>
-
-
-</div>
+    <!--        --><?php //echo CHtml::encode($data->view_count); ?>
