@@ -80,6 +80,7 @@ class ServiceCenterController extends Controller
 	public function actionCreate()
 	{
 		$model=new ServiceCenter;
+        self::getDropDownListDopTitle($model);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -104,6 +105,7 @@ class ServiceCenterController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+        self::getDropDownListDopTitle($model);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -134,6 +136,21 @@ class ServiceCenterController extends Controller
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
 
+    public function getDropDownListDopTitle (&$model) {
+        $model->dop_array_title['brand'] = Brand::model()->getAllBrandIdTitle();
+        $model->dop_array_title['category'] = Category::model()->getAllCategoryIdTitle();
+        $model->dop_array_title['city'] = City::model()->getAllCityIdTitle();
+        $model->dop_array_title['login_service'] = User::model()->getAllUserIdTitle(2);
+
+        foreach ($model->dop_array_title as &$inf) {
+            if(empty($inf)) {
+                $inf = array('' => 'Результатов нет');
+            } else {
+                $inf = array('' => 'Не определен') + $inf;
+            }
+        }
+    }
+
     /**
     * Manages all models.
     */
@@ -143,6 +160,8 @@ class ServiceCenterController extends Controller
         $model->unsetAttributes();  // clear any default values
         if(isset($_GET['ServiceCenter']))
             $model->attributes=$_GET['ServiceCenter'];
+
+        self::getDropDownListDopTitle($model);
 
         $this->render('index',array(
         'model'=>$model,
@@ -158,6 +177,51 @@ class ServiceCenterController extends Controller
         User::model()->findByPk($model->id_user)->prevent();
         $this->redirect(array('index'));
 
+    }
+
+    public function getMap ($serviceCenter, $onlyThisService = true) {
+        if ($onlyThisService) {
+            $points[] = $this->getPointOnMap ($serviceCenter);
+            $params = array('visible'=>true,'zoom'=>13,'width'=>'710px','height'=>'200px');
+        } else{
+            $points = $this->getImmediatePointMap ($serviceCenter);
+            $params = array('visible'=>true,'zoom'=>13,'width'=>'710px','height'=>'200px');
+        }
+
+        if (!empty($points)) {
+            return $this->widget('ext.yaMap.yaMap',
+                array(
+                    'points' =>$points,
+                    'params' => $params,
+                )
+            );
+        }
+
+    }
+
+    public function getPointOnMap ($serviceCenter) {
+        $coordinates = explode(',', $serviceCenter->coordinates);
+        if (count($coordinates) == 2) {
+            $points=array(
+                'lat' => (int)$coordinates[0],
+                'lng' => (int)$coordinates[1],
+                'header' => Yii::app()->name,
+                'body'=> !empty($serviceCenter->name)?$serviceCenter->name:'',
+                'footer' => !empty($serviceCenter->telephone)?$serviceCenter->telephone:''
+            );
+        } else {
+            $lng = 37.609218;//Moscow coordinates
+            $lat = 55.753559;//Moscow coordinates
+            $points=array(
+                'lat' => $lat,
+                'lng' => $lng,
+                'header' => Yii::app()->name,
+                'body'=> !empty($serviceCenter->name)?$serviceCenter->name:'',
+                'footer' => !empty($serviceCenter->telephone)?$serviceCenter->telephone:''
+            );
+        }
+
+        return $points;
     }
 
 	/**

@@ -17,13 +17,18 @@ $this->menu=array(
 ?>
 
 <h1>Просмотр Сервисного центра "<?php echo $model->name; ?>"</h1>
-<?php $this->widget('zii.widgets.CDetailView', array(
+
+<?php
+$this->getMap($model);
+
+$this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
         'login'=>array(
             'name'=>'login',
             'value'=> isset($model->user) ? $model->user->login : 'Не задано',
         ),
+        'id_center',
         'name'=>array(
             'name'=>'name',
             'value'=> !empty($model->name) ? $model->name : 'Не задано',
@@ -52,7 +57,7 @@ $this->menu=array(
         'time_registration'=>array(
             'name' => 'time_registration',
             'filter' => false,
-            'value'=> !empty($model->user->time_registration) ? DateTime::createFromFormat("U", $model->user->time_registration)->format("d.m.Y H:i:s") : 'Не задано',
+            'value'=> !empty($model->user->time_registration) ? DateTime::createFromFormat("U", $model->user->time_registration)->format("d.m.Y") : 'Не задано',
         ),
 		'email_officially',
 		'telephone',
@@ -62,7 +67,6 @@ $this->menu=array(
             'value'=> isset($model->city) ? CHtml::link($model->city->title, array('city/index', "City[id]"=>$model->id_city)) : 'Не задано',
         ),
 		'street',
-		'coordinates',
 		'working_hours',
 		'dop_info',
 		'site',
@@ -93,4 +97,7 @@ $this->menu=array(
             'value'=> !empty($model->title_brand) ? $model->title_brand : 'Не задано',
         ),
 	),
-)); ?>
+));
+
+?>
+

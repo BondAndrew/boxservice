@@ -3,12 +3,12 @@
 /* @var $model ServiceCenter */
 
 $this->breadcrumbs=array(
-	'Service Centers'=>array('index'),
-	'Управление Service Centers',
+	'Сервисные центры'=>array('index'),
+	'Управление сервисными центрами',
 );
 
 $this->menu=array(
-	array('label'=>'Создать новый ServiceCenter', 'url'=>array('create')),
+	array('label'=>'Создать новый сервисный центр', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -25,7 +25,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Управление Service Centers</h1>
+<h1>Управление сервисными центрами</h1>
 
 <?php echo CHtml::link('Расширеный поиск','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
@@ -39,23 +39,38 @@ $('.search-form form').submit(function(){
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id_center',
-		'id_user',
+        'login'=>array(
+            'name'=>'login',
+            'type' => 'raw',
+            'value'=> 'isset($data->user) ? CHtml::link($data->user->login, array("user/view", "id"=>$data->id_user)) : "Не задано"',
+        ),
 		'name',
 		'email_officially',
 		'telephone',
-		'id_city',
-		/*
-		'street',
-		'coordinates',
-		'working_hours',
-		'dop_info',
-		'site',
-		'transliteration',
-		'personal_questions',
-		*/
-		array(
-			'class'=>'CButtonColumn',
-		),
+        'title_city'=>array(
+            'name'=>'title_city',
+            'type' => 'raw',
+            'value'=> 'isset($data->city) ? CHtml::link($data->city->title, array("city/index", "id"=>$data->id_city)) : "Не задано"',
+        ),
+        'count_views'=>array(
+            'name'=>'count_views',
+            'value'=>'$data->count_views',
+        ),
+        'check_user'=>array(
+            'name' => 'check_user',
+            'value' => '($data->user->check_user)?"Да":"Нет"',
+            'filter' => CHtml::listData(array(array('value'=>'Все', 'key'=>''),array('value'=>'Да', 'key'=>'1'),array('value'=>'Нет', 'key'=>'0')), 'key', 'value'),
+        ),
+        array(
+            'class'=>'CButtonColumn',
+            'buttons' => array(
+                'prevent' => array(
+                    'imageUrl'=>Yii::app()->request->baseUrl.'/images/icons/check.png',
+                    'url' => 'CHtml::normalizeUrl(array("servicecenter/prevent", "id"=>$data->id_center))',
+                    'label' => 'Допустить сервисный центр',
+                    'visible'=>'(!$data->user->check_user)'),
+            ),
+            'template' => '{prevent} {view} {update} {delete}'
+        ),
 	),
 )); ?>

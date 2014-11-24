@@ -20,7 +20,9 @@
  */
 class ServiceCenter extends CActiveRecord
 {
+    public $id_brand;
     public $title_brand;
+    public $id_category;
     public $title_category;
     public $title_dop_service;
     public $title_city;
@@ -148,7 +150,7 @@ class ServiceCenter extends CActiveRecord
         $view_count_sql = "(select count(*) from $view_table pt where pt.id_object = t.id_user AND pt.type_object = " .VIEWS::TYPE_PROFILE. ')';
 
         $criteria->with = array('category', 'brand', 'user', 'city', 'viewCount', 'categoryServiceCenter', 'centerBrand', 'centerDopService', 'dopService');
-        $criteria->select = array('*', $view_count_sql . ' AS view_count');
+        $criteria->select = array('*', $view_count_sql . ' AS count_views');
 
         $criteria->condition = 'type_object = ' .VIEWS::TYPE_PROFILE. ' OR type_object IS NULL';
         $criteria->group= 't.id_user';
@@ -168,7 +170,9 @@ class ServiceCenter extends CActiveRecord
 		$criteria->compare('t.site',$this->site,true);
 		$criteria->compare('t.transliteration',$this->transliteration,true);
         $criteria->compare('t.personal_questions',$this->personal_questions);
+        $criteria->compare('brand.id',$this->id_brand);
         $criteria->compare('brand.title',$this->title_brand);
+        $criteria->compare('category.id',$this->id_category);
         $criteria->compare('category.title',$this->title_category);
         $criteria->compare('dopService.title',$this->title_dop_service);
         $criteria->compare('city.title',$this->title_city);
